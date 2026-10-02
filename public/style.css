@@ -24,10 +24,8 @@ body {
 }
 
 .chat-container {
-    /* width: 400px;
-    height: 600px; */
-    width: min(400px,100%);
-    height: min(600px,90vh);
+    width: min(400px, 100%);
+    height: min(600px, 90vh);
 
     background: rgba(255, 255, 255, 0.2);
 
@@ -88,6 +86,9 @@ header h1 {
     line-height: 1.4;
 
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 .user-message {
@@ -104,7 +105,124 @@ header h1 {
     color: #333;
 
     margin-right: auto;
+
+    max-width: 90%;
 }
+
+/* ---------- Markdown styling for bot messages ---------- */
+
+.bot-message > *:first-child {
+    margin-top: 0;
+}
+
+.bot-message > *:last-child {
+    margin-bottom: 0;
+}
+
+.bot-message p {
+    margin: 6px 0;
+}
+
+.bot-message strong {
+    font-weight: 700;
+}
+
+.bot-message em {
+    font-style: italic;
+}
+
+.bot-message ul,
+.bot-message ol {
+    margin: 6px 0 6px 20px;
+}
+
+.bot-message li {
+    margin: 3px 0;
+}
+
+.bot-message h1,
+.bot-message h2,
+.bot-message h3,
+.bot-message h4,
+.bot-message h5,
+.bot-message h6 {
+    margin: 12px 0 6px;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.bot-message h1 {
+    font-size: 1.15em;
+}
+
+.bot-message h2 {
+    font-size: 1.1em;
+}
+
+.bot-message hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.bot-message a {
+    color: #0078ff;
+    text-decoration: underline;
+}
+
+.bot-message blockquote {
+    border-left: 3px solid #0078ff;
+    padding-left: 10px;
+    margin: 8px 0;
+    color: #555;
+}
+
+.bot-message code {
+    background: rgba(0, 0, 0, 0.08);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9em;
+}
+
+.bot-message pre {
+    background: #1e1e1e;
+    color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 8px 0;
+}
+
+.bot-message pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: 0.85em;
+}
+
+.bot-message table {
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    margin: 8px 0;
+}
+
+.bot-message th,
+.bot-message td {
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    font-size: 0.85em;
+    text-align: left;
+}
+
+.bot-message th {
+    background: rgba(0, 0, 0, 0.06);
+    font-weight: 600;
+}
+
+/* ---------- Input area ---------- */
 
 .input-area {
     display: flex;
@@ -155,68 +273,74 @@ header h1 {
     cursor: not-allowed;
 }
 
-@media(max-width:480px){
-    body{
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+    .chat-container {
+        width: 90%;
+        height: 85vh;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
         padding: 10px;
     }
 
-    .chat-container{
+    .chat-container {
         width: 100%;
         height: 100vh;
         border-radius: 0;
     }
 
-    header{
+    header {
         padding: 15px;
         min-height: 60px;
     }
 
-    header h1{
+    header h1 {
         font-size: 20px;
     }
 
-    .chat-box{
+    .chat-box {
         padding: 10px;
     }
 
-    .message{
+    .message {
         max-width: 90%;
         font-size: 14px;
         padding: 8px;
     }
 
-    .input-area{
+    .bot-message {
+        max-width: 95%;
+    }
+
+    .input-area {
         padding: 8px;
     }
 
-    #user-input{
+    #user-input {
         padding: 8px;
         font-size: 14px;
     }
 
-    #send-btn{
+    #send-btn {
         padding: 8px 12px;
         font-size: 14px;
     }
 }
 
-@media(max-width:320px){
-    header h1{
+@media (max-width: 320px) {
+    header h1 {
         font-size: 18px;
     }
 
-    #send-btn{
+    #send-btn {
         padding: 8px 10px;
-    }
-}
-
-@media(max-width:768px){
-    .chat-container{
-        width: 90%;
-        height: 85vh;
-    }
-
-    header h1{
-        font-size: 24px;
     }
 }

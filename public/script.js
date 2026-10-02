@@ -2,11 +2,24 @@ const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 
+// Optional: make line breaks inside paragraphs work like chat apps
+// marked.setOptions({
+//     breaks: true,
+// });
+
 function addMessage(message, className) {
     const div = document.createElement("div");
 
     div.classList.add("message", className);
-    div.textContent = message;
+
+    if (className === "bot-message") {
+        // Convert Markdown -> HTML, then sanitize to prevent XSS
+        const html = marked.parse(message);
+        div.innerHTML = DOMPurify.sanitize(html);
+    } else {
+        // User text stays plain and safe
+        div.textContent = message;
+    }
 
     chatBox.appendChild(div);
     chatBox.scrollTop = chatBox.scrollHeight;
@@ -19,6 +32,7 @@ function showTyping() {
     div.textContent = "AI is typing...";
 
     chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     return div;
 }
@@ -56,6 +70,9 @@ async function getBotReply(message) {
 }
 
 async function sendMessage() {
+    // Prevent sending while a request is already in progress
+    if (sendBtn.disabled) return;
+
     const message = userInput.value.trim();
 
     if (!message) return;
@@ -75,6 +92,7 @@ async function sendMessage() {
     addMessage(reply, "bot-message");
 
     sendBtn.disabled = false;
+    userInput.focus();
 }
 
 sendBtn.addEventListener("click", sendMessage);
